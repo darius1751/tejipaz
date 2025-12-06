@@ -1,0 +1,101 @@
+{
+    "Roles": {
+        "_id": "mongo_id",
+        "name": "string"
+    },
+    "Credentials": {
+        "_id": "mongo_id",
+        "username": "string",
+        "password": "string",
+        "role": "role_id",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+    },
+    "Employees": {
+        "_id": "mongo_id",
+        "credential_id": "mongo_id",
+        "name": "string",
+        "email": "string",
+        "phone": "string"
+    },
+    "Users": {
+        "_id": "mongo_id",
+        "credential_id": "mongo_id",
+        "name": "string",
+        "email": "string",
+        "phone": "string",
+        "address": "string"
+    },
+    "Categories": {
+        "_id": "mongo_id",
+        "name": "string"
+    },
+    "Tags": {
+        "_id": "mongo_id",
+        "name": "string",
+        "color": "string"
+    },
+    // "TypesProduct": {
+    //     "_id": "mongo_id",
+    //     "type": "string"
+    // },
+    "Products": {
+        "_id": "mongo_id",
+        "name": "string",
+        // "type_id": "mongo_id",
+        "images": ["string"],
+        "slug": "string",
+        "tags": ["mongo_id"],
+        "categories": ["mongo_id"],
+        "price": "number",
+        "discount": "number",
+        "specialPrice": "number",
+        "description": "string",
+        "stock": "number",
+        "updatedAt": "timestamp",
+        "createdAt": "timestamp"
+    },
+    "PaymentStatus": {
+        "_id": "mongo_id",
+        "status": "string"
+    },
+    "Payments": {
+        "_id": "mongo_id",
+        "user_id": "mongo_id",
+        "transaction_id": "uid",
+        "mount": "number",
+        "status": "string",
+        "payment_commitment": "string",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+    },
+    "Orders": {
+        "_id": "mongo_id",
+        "payment_id": "mongo_id",
+        "items": [
+            {
+                "product_id": "mongo_id",
+                "cant": "number",
+                "unitPrice": "number",
+                "taxes": "number"
+            }
+        ],
+        "status": "mongo_id",
+        "country": "string",
+        "city": "string",
+        "address": "string",
+        "description": "string"
+    },
+    "OrdersStatus": {
+        "_id": "mongo_id",
+        "status": "string"
+    },
+    "Logs": {
+        "_id": "mongo_id",
+        "user_id": "mongo_id",
+        "role_id": "mongo_id",
+        "detail": "string",
+        "result": "string",
+        "createdAt": "timestamp"
+    }
+}
