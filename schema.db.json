@@ -23,8 +23,11 @@
         "credential_id": "mongo_id",
         "name": "string",
         "email": "string",
+        "countryCode": "string",
         "phone": "string",
-        "address": "string"
+        "address": "string",
+        "country": "string",
+        "city": "string"
     },
     "Categories": {
         "_id": "mongo_id",
@@ -33,38 +36,33 @@
     "Tags": {
         "_id": "mongo_id",
         "name": "string",
-        "color": "string"
+        "color": "string",
+        "available": "boolean"
     },
-    // "TypesProduct": {
-    //     "_id": "mongo_id",
-    //     "type": "string"
-    // },
     "Products": {
         "_id": "mongo_id",
         "name": "string",
-        // "type_id": "mongo_id",
         "images": ["string"],
         "slug": "string",
         "tags": ["mongo_id"],
         "categories": ["mongo_id"],
         "price": "number",
-        "discount": "number",
-        "specialPrice": "number",
-        "description": "string",
+        "discount": {
+            "type": "mongo_id",
+            "value": "number"
+        },
         "stock": "number",
+        "description": "string",
+        "available": "boolean",
         "updatedAt": "timestamp",
         "createdAt": "timestamp"
-    },
-    "PaymentStatus": {
-        "_id": "mongo_id",
-        "status": "string"
     },
     "Payments": {
         "_id": "mongo_id",
         "user_id": "mongo_id",
-        "transaction_id": "uid",
+        "transaction_id": "string",
         "mount": "number",
-        "status": "string",
+        "status": "pending|reject|approved",
         "payment_commitment": "string",
         "createdAt": "timestamp",
         "updatedAt": "timestamp"
@@ -80,15 +78,13 @@
                 "taxes": "number"
             }
         ],
-        "status": "mongo_id",
+        "status": "progress|delivered",
         "country": "string",
         "city": "string",
+        "countryCode": "string",
+        "phone": "string",
         "address": "string",
         "description": "string"
-    },
-    "OrdersStatus": {
-        "_id": "mongo_id",
-        "status": "string"
     },
     "Logs": {
         "_id": "mongo_id",
