@@ -4,23 +4,24 @@ import { UpdateLogDto } from './dto/update-log.dto';
 
 @Injectable()
 export class LogsService {
-  create(createLogDto: CreateLogDto) {
+
+  async create(createLogDto: CreateLogDto) {
     return 'This action adds a new log';
   }
 
-  findAll() {
+  async findAll() {
     return `This action returns all logs`;
   }
 
-  findOne(id: number) {
+  async findOne(id: string) {
     return `This action returns a #${id} log`;
   }
 
-  update(id: number, updateLogDto: UpdateLogDto) {
+  async update(id: string, updateLogDto: UpdateLogDto) {
     return `This action updates a #${id} log`;
   }
 
-  remove(id: number) {
+  async remove(id: string) {
     return `This action removes a #${id} log`;
   }
 }

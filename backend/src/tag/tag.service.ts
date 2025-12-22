@@ -1,26 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
+import { Model } from 'mongoose';
+import { Tag } from './entities/tag.entity';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class TagService {
-  create(createTagDto: CreateTagDto) {
-    return 'This action adds a new tag';
+
+  constructor(
+    @InjectModel(Tag.name)
+    private readonly tagModel: Model<Tag>
+  ) { }
+
+  async create({ name }: CreateTagDto) {
+    const tag = await this.tagModel.findOne({ name });
+    if (tag)
+      throw new BadRequestException(`Exists tag ${name}`);
+    return await this.tagModel.create({ name });
   }
 
-  findAll() {
-    return `This action returns all tag`;
+  async findAll(all = false) {
+    if (!all)
+      return await this.tagModel.find({ available: true });
+    return await this.tagModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tag`;
+  async findOne(id: string) {
+    const tag = await this.tagModel.findById(id);
+    if (!tag)
+      throw new BadRequestException(`Not exists tag with id: ${id}`);
+    return tag;
   }
 
-  update(id: number, updateTagDto: UpdateTagDto) {
-    return `This action updates a #${id} tag`;
+  async update(id: string, updateTagDto: UpdateTagDto) {
+    await this.findOne(id);
+    return await this.tagModel.findByIdAndUpdate(id, updateTagDto, { new: true });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tag`;
+  async remove(id: string) {
+    await this.findOne(id);
+    return await this.tagModel.findByIdAndUpdate(id, { available: false }, { new: true });
   }
 }

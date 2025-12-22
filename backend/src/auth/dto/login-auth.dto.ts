@@ -1,6 +1,6 @@
 import { IsEmail, IsStrongPassword } from "class-validator";
 
-export class CreateAuthDto {
+export class LoginAuthDto {
     @IsEmail()
     public readonly email: string;
 

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { LogsService } from './logs.service';
 import { CreateLogDto } from './dto/create-log.dto';
 import { UpdateLogDto } from './dto/update-log.dto';
+import { MongoIdPipe } from 'src/common/pipes/mongo-id/mongo-id.pipe';
 
 @Controller('logs')
 export class LogsController {
@@ -18,17 +19,17 @@ export class LogsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.logsService.findOne(+id);
+  findOne(@Param('id',MongoIdPipe) id: string) {
+    return this.logsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLogDto: UpdateLogDto) {
-    return this.logsService.update(+id, updateLogDto);
+  update(@Param('id',MongoIdPipe) id: string, @Body() updateLogDto: UpdateLogDto) {
+    return this.logsService.update(id, updateLogDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.logsService.remove(+id);
+  remove(@Param('id',MongoIdPipe) id: string) {
+    return this.logsService.remove(id);
   }
 }

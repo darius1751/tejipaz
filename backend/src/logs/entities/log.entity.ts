@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes } from "mongoose";
-import { Employee } from "src/employee/entities/employee.entity";
-import { Role } from "src/role/entities/role.entity";
+import { roles } from "src/common/constants/roles";
+import { User } from "src/user/entities/user.entity";
 
 export const logResults = ["success", "failed"];
 
 @Schema({ versionKey: false, timestamps: true })
 export class Log {
 
-    @Prop({ type: SchemaTypes.ObjectId, ref: Employee.name })
-    public readonly employee: Employee;
+    @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
+    public readonly employee: User;
 
-    @Prop({ type: SchemaTypes.ObjectId, ref: Role.name })
-    public readonly role: Role;
+    @Prop({ type: SchemaTypes.String, enum: roles })
+    public readonly role: string;
 
     @Prop({ type: SchemaTypes.String })
     public readonly detail: string;
