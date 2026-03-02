@@ -42,10 +42,16 @@
     "Products": {
         "_id": "mongo_id",
         "name": "string",
-        "images": ["string"],
+        "images": [
+            "string"
+        ],
         "slug": "string",
-        "tags": ["mongo_id"],
-        "categories": ["mongo_id"],
+        "tags": [
+            "mongo_id"
+        ],
+        "categories": [
+            "mongo_id"
+        ],
         "price": "number",
         "discount": {
             "type": "mongo_id",
@@ -75,7 +81,12 @@
                 "product_id": "mongo_id",
                 "cant": "number",
                 "unitPrice": "number",
-                "taxes": "number"
+                "taxes": [
+                    {
+                        "reason": "string",
+                        "amount": "number"
+                    }
+                ]
             }
         ],
         "status": "progress|delivered",

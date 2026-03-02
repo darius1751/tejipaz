@@ -13,5 +13,6 @@ import { Tag, TagSchema } from './entities/tag.entity';
   ],
   controllers: [TagController],
   providers: [TagService],
+  exports: [TagService],
 })
 export class TagModule { }

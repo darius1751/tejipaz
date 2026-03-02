@@ -6,7 +6,7 @@ const EmailLayout = ({ name }: Props) => {
     return (
         <Tailwind>
             <Text>React Email en accion {name}</Text>
-            <Section className="my-[40px] px-[32px] py-[40px]">
+            <Section className="my-10 px-8 py-10">
                 <Row>
                     <Column align="center">
                         <Img
@@ -16,26 +16,26 @@ const EmailLayout = ({ name }: Props) => {
                         />
                     </Column>
                 </Row>
-                <Row className="mt-[40px]">
+                <Row className="mt-10">
                     <Column align="center">
                         <table>
                             <tr>
-                                <td className="px-[8px]">
+                                <td className="px-2">
                                     <Link className="text-gray-600 [text-decoration:none]" href="#">
                                         About
                                     </Link>
                                 </td>
-                                <td className="px-[8px]">
+                                <td className="px-2">
                                     <Link className="text-gray-600 [text-decoration:none]" href="#">
                                         Blog
                                     </Link>
                                 </td>
-                                <td className="px-[8px]">
+                                <td className="px-2">
                                     <Link className="text-gray-600 [text-decoration:none]" href="#">
                                         Company
                                     </Link>
                                 </td>
-                                <td className="px-[8px]">
+                                <td className="px-2">
                                     <Link className="text-gray-600 [text-decoration:none]" href="#">
                                         Features
                                     </Link>

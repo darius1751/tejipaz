@@ -1,27 +1,25 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Log } from './entities/log.entity';
+import { UserService } from 'src/user/user.service';
 import { CreateLogDto } from './dto/create-log.dto';
-import { UpdateLogDto } from './dto/update-log.dto';
 
 @Injectable()
 export class LogsService {
 
+  constructor(
+    @InjectModel(Log.name)
+    private readonly logModel: Model<Log>,
+    private readonly userService: UserService
+  ) { }
   async create(createLogDto: CreateLogDto) {
-    return 'This action adds a new log';
+    const { userId } = createLogDto;
+    const user = await this.userService.findOne(userId);
+    return await this.logModel.create({ ...createLogDto, user });
   }
 
   async findAll() {
-    return `This action returns all logs`;
-  }
-
-  async findOne(id: string) {
-    return `This action returns a #${id} log`;
-  }
-
-  async update(id: string, updateLogDto: UpdateLogDto) {
-    return `This action updates a #${id} log`;
-  }
-
-  async remove(id: string) {
-    return `This action removes a #${id} log`;
+    return await this.logModel.find();
   }
 }

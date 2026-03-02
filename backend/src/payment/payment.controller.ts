@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
@@ -28,8 +28,8 @@ export class PaymentController {
     return this.paymentService.update(id, updatePaymentDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id',MongoIdPipe) id: string) {
-    return this.paymentService.remove(id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id',MongoIdPipe) id: string) {
+  //   return this.paymentService.remove(id);
+  // }
 }

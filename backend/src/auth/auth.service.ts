@@ -3,13 +3,15 @@ import { AuthService as AuthServiceBetterAuth } from '@thallesp/nestjs-better-au
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
-import { auth } from './config/auth';
+import { auth } from './config/auth.config';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly authServiceBetterAuth: AuthServiceBetterAuth<typeof auth>,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    // private readonly mailerService: MailerService,
   ) { }
 
   async create(createUserDto: CreateUserDto) {
@@ -18,7 +20,6 @@ export class AuthService {
     if (existsEmail)
       throw new BadRequestException(`Error in create user exists email ${credential.email}`);
 
-    // const newCredential = await this.credentialModel.create({ ...credential, password: encryptedPassword });
     const newCredential = await this.authServiceBetterAuth.api.createUser({
       body: {
         email: credential.email,
@@ -26,16 +27,23 @@ export class AuthService {
         name: user.name,
         role: 'user',
       },
-    })
-    return await this.userService.create({ ...user, credential: credential }, newCredential.user.id)
+    });
+
+    const newUser = await this.userService.create({ ...user, credential: credential }, newCredential?.user);
+    await this.authServiceBetterAuth.api.sendVerificationEmail({ body: { email: credential.email, callbackURL: 'http://localhost:3001/verificate-code' } });
+    return newUser;
   }
   async createWithGoogle() {
-    return await this.authServiceBetterAuth.api.signInSocial({
+    const googleLogin = await this.authServiceBetterAuth.api.signInSocial({
       body: {
         provider: 'google',
-        requestSignUp: true,
+        // requestSignUp: true,
+        newUserCallbackURL: '',
+        callbackURL: '',
+        
       }
-    })
+    });
+    return googleLogin;
   }
   async login(loginAuthDto: LoginAuthDto) {
     const { email, password } = loginAuthDto;
@@ -46,7 +54,16 @@ export class AuthService {
           password,
         }
       });
-      return await this.userService.findOneByCredentialId(loginData?.user?.id);
+      const user = await this.userService.findOneByCredentialId(loginData?.user?.id);
+      return {
+        ...user.toJSON(),
+        emailVerified: loginData.user.emailVerified,
+        banned: loginData.user.banned,
+        banExpires: loginData.user.banExpires,
+        token: loginData.token,
+        role: loginData.user.role,
+        image: loginData.user.image
+      }
 
     } catch (err) {
       throw new UnauthorizedException(`Invalid email or password`);

@@ -12,28 +12,37 @@ export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
   @Post()
-  @Roles(["admin"])
+  @AllowAnonymous()
+  // @Roles(["admin"])
   @UseInterceptors(FilesInterceptor('images', 4, {
     limits: {
-      fileSize: 2 * 1024,
-    }
+      fileSize: 2 * 1048576,
+    },
+
   }))
   create(
     @UploadedFiles() images: Express.Multer.File[],
     @Body() createProductDto: CreateProductDto
   ) {
-    return this.productService.create(createProductDto);
+    return this.productService.create(createProductDto, images);
   }
 
   @Get()
   @AllowAnonymous()
   findAll(
-    @Query('tags', new DefaultValuePipe("")) tags: string = "",
-    @Query('categories', new DefaultValuePipe("")) categories: string = "",
+    @Query('name') name: string,
+    @Query('tags') tags: string,
+    @Query('categories') categories: string,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query('take', new DefaultValuePipe(10), ParseIntPipe) take: number = 10,
   ) {
-    return this.productService.findAll(tags.split(";"), categories.split(";"), page, take);
+    return this.productService.findAll({
+      name,
+      tags: tags?.split?.(";"),
+      categories: categories?.split?.(";"),
+      page,
+      take
+    });
   }
 
   @Get(':id')

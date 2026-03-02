@@ -16,10 +16,10 @@ export class Product {
     @Prop({ type: SchemaTypes.String })
     public readonly slug: string;
 
-    @Prop({ type: [SchemaTypes.ObjectId], ref: Tag.name })
+    @Prop({ type: [SchemaTypes.ObjectId], ref: Tag.name, isRequired: false })
     public readonly tags: Tag[];
 
-    @Prop({ type: [SchemaTypes.ObjectId], ref: Category.name })
+    @Prop({ type: [SchemaTypes.ObjectId], ref: Category.name, isRequired: false })
     public readonly categories: Category[];
 
     @Prop({ type: SchemaTypes.Number })

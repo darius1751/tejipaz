@@ -17,19 +17,4 @@ export class LogsController {
   findAll() {
     return this.logsService.findAll();
   }
-
-  @Get(':id')
-  findOne(@Param('id',MongoIdPipe) id: string) {
-    return this.logsService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id',MongoIdPipe) id: string, @Body() updateLogDto: UpdateLogDto) {
-    return this.logsService.update(id, updateLogDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id',MongoIdPipe) id: string) {
-    return this.logsService.remove(id);
-  }
 }

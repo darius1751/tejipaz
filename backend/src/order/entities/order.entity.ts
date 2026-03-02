@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { OrderItem } from "./order-item.schema";
 import { SchemaTypes } from "mongoose";
+import { Payment } from "src/payment/entities/payment.entity";
+import { Tax } from "./tax.schema";
 
-export const orderStatus = ["progress|delivered"];
+export const orderStatus = ["progress", "delivered"];
 
 @Schema({ versionKey: false, timestamps: true })
 export class Order {
@@ -30,6 +32,12 @@ export class Order {
 
     @Prop({ type: [OrderItem] })
     public readonly items: OrderItem[];
+
+    @Prop({ type: SchemaTypes.ObjectId, ref: Payment.name })
+    public readonly payment: Payment;
+
+    @Prop({ type: [Tax] })
+    public readonly taxes: Tax[];
 
 }
 export const OrderSchema = SchemaFactory.createForClass(Order);

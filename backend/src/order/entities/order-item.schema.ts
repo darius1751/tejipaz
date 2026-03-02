@@ -13,7 +13,4 @@ export class OrderItem {
 
     @Prop({ type: SchemaTypes.Number })
     public readonly unitPrice: number;
-
-    @Prop({ type: SchemaTypes.Number })
-    public readonly taxes: number;
 }

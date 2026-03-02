@@ -2,10 +2,13 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes } from "mongoose";
 import { User } from "src/user/entities/user.entity";
 
-export const paymentStatus = ["pending", "reject", "approved"];
+export const paymentStatus = ["pending", "reject", "approved", "repayment"];
 
 @Schema({ versionKey: false, timestamps: true })
 export class Payment {
+
+    @Prop({ type: SchemaTypes.String })
+    public readonly method: string;
 
     @Prop({ type: SchemaTypes.Number, })
     public readonly mount: number;

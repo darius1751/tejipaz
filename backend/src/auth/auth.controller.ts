@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
@@ -25,6 +25,7 @@ export class AuthController {
   }
 
   @Post('login/email')
+  
   @AllowAnonymous()
   async loginEmail(@Body() loginAuthDto: LoginAuthDto) {
     return await this.authService.login(loginAuthDto);

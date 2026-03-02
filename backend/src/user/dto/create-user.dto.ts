@@ -1,4 +1,4 @@
-import { IsEmail, IsObject, IsPhoneNumber, IsString, MinLength, ValidateNested } from "class-validator";
+import { IsObject, IsPhoneNumber, IsString, MinLength, ValidateNested } from "class-validator";
 import { Type } from 'class-transformer'
 import { CreateAuthDto } from "src/auth/dto/create-auth.dto";
 export class CreateUserDto {
@@ -27,5 +27,3 @@ export class CreateUserDto {
     @Type(() => CreateAuthDto)
     public readonly credential: CreateAuthDto;
 }
-
-

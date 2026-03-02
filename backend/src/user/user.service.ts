@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
+import { UserWithRole } from 'better-auth/plugins';
 
 @Injectable()
 export class UserService {
@@ -25,9 +26,20 @@ export class UserService {
     return user;
   }
 
-  async create(createUserDto: CreateUserDto, credentialId: string) {
+  async create(createUserDto: CreateUserDto, credentials: UserWithRole) {
     const { credential, ...user } = createUserDto;
-    return await this.userModel.create({ ...user, credentialId, email: credential.email });
+    const newUser = await this.userModel.create({ ...user, credentialId: credentials.id, email: credential.email });
+    
+    return {
+      ...newUser.toJSON(),
+      role: credentials.role,
+      emailVerified: credentials.emailVerified,
+      banned: credentials.banned,
+      banExpires: credentials.banExpires,
+      image: credentials.image,
+      createdAt: credentials.createdAt,
+      updatedAt: credentials.updatedAt
+    }
   }
 
   async findAll() {
