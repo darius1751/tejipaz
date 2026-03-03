@@ -1,6 +1,6 @@
 'use client'
 import { UIEvent, useEffect, useRef, useState } from "react"
-import { DotVariants } from "./dot.variants";
+import { dotVariants, DotVariants } from "./dot.variants";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 
@@ -27,10 +27,7 @@ type Props = {
 export const Slider = ({ children, autoPlay, dots, chevrons, className = "", initialCurrentItem = 0 }: Props) => {
     const [currentItem, setCurrentItem] = useState(initialCurrentItem);
     const $slider = useRef<HTMLOListElement>(null);
-    const dotVariants = [
-        `w-4 h-4 rounded-full cursor-pointer`,
-        `w-8 h-2 rounded-xl cursor-pointer`,
-    ];
+    
     const handleScroll = (e: UIEvent<HTMLOListElement>) => {
         const { clientWidth, scrollLeft } = $slider.current!;
         setCurrentItem(Math.round(scrollLeft / clientWidth));
