@@ -2,11 +2,11 @@
 import { ChangeEvent, useState } from "react"
 
 type UseFormData<T> = {
-    initialForm: T;
+    initialForm: T;    
 }
 export const useForm = <T>({ initialForm }: UseFormData<T>) => {
     const [values, setValues] = useState(initialForm);
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | { target: { name: string, value: string } }) => {
         const { name, value } = e.target;
         setValues((prev) => ({ ...prev, [name]: value }));
     }

@@ -5,6 +5,18 @@
   --foreground: var(--color-black);
 }
 
+.dark {
+  color-scheme: dark;
+  --background: var(--color-background-black);
+  --foreground: var(--color-white);
+}
+
+.light {
+  color-scheme: light;
+  --background: var(--color-white);
+  --foreground: var(--color-black);
+}
+
 @theme inline {
 
   --color-background: var(--background);
@@ -15,6 +27,7 @@
 
   --color-gold: #B18236;
   --color-green: #C1D100;
+  --color-gray: #8C8D91;
   --color-white: #F2F1F1;
   --color-blue: #34B4F4;
   --color-brown: #431820;
@@ -25,13 +38,15 @@
 
 }
 
-@media (prefers-color-scheme: dark) {
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--color-background-black);
     --foreground: var(--color-white);
   }
-}
-
+} */
 body {
   background: var(--background);
   color: var(--foreground);

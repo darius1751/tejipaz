@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import localFont from 'next/font/local'
 import "./globals.css";
+import { NextIntlClientProvider } from "next-intl";
 
 type Props = Readonly<{
   children: React.ReactNode
@@ -26,9 +27,11 @@ export default function RootLayout({ children, }: Props) {
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${swirlyCanalopeFont.variable} antialiased`}
+        className={`${poppins.variable} ${swirlyCanalopeFont.variable} antialiased min-h-screen`}
       >
-        {children}
+        <NextIntlClientProvider>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

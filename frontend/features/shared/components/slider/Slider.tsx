@@ -27,7 +27,7 @@ type Props = {
 export const Slider = ({ children, autoPlay, dots, chevrons, className = "", initialCurrentItem = 0 }: Props) => {
     const [currentItem, setCurrentItem] = useState(initialCurrentItem);
     const $slider = useRef<HTMLOListElement>(null);
-    
+
     const handleScroll = (e: UIEvent<HTMLOListElement>) => {
         const { clientWidth, scrollLeft } = $slider.current!;
         setCurrentItem(Math.round(scrollLeft / clientWidth));

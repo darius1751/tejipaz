@@ -9,17 +9,19 @@ type Props = {
     Icon?: React.ReactNode;
     disabled?: boolean;
     variant?: ButtonVariant;
-    handleClick?: MouseEventHandler<HTMLButtonElement>
+    handleClick?: MouseEventHandler<HTMLButtonElement>,
+    type?: "submit" | "reset" | "button",
 }
-export const Button = ({ Icon, text, className = "", loading = false, disabled = false, variant = ButtonVariant.PRIMARY, handleClick }: Props) => {
+export const Button = ({ Icon, text, className = "", type, loading = false, disabled = false, variant = ButtonVariant.ORANGE, handleClick }: Props) => {
     return (
         <button
             className={`${className} ${variants[variant]} rounded-lg p-2 mb-2 cursor-pointer flex gap-2 items-center w-fit justify-center disabled:cursor-default`.trim()}
             disabled={loading || disabled}
             onClick={handleClick}
+            type={type}
         >
             {Icon}
-            <span className="font-bold">
+            <span>
                 {text}
             </span>
             {loading && <Loading />}

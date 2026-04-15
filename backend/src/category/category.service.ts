@@ -23,15 +23,6 @@ export class CategoryService {
 
   async findAll() {
     // const emailHtml = await render(<EmailLayout/>);
-    await this.mailerService.sendMail({
-      to: 'lupequi12@gmail.com',
-      template: 'layout',
-      sender: 'Tejipaz',
-      subject: 'Mensaje 1 de prueba',
-      context: {
-        name: "Luis"
-      }
-    })
     return await this.categoryModel.find();
   }
 

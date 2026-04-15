@@ -1,18 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import cookieParser from 'cookie-parser';
 import { Logger, ValidationPipe } from '@nestjs/common';
 const logger = new Logger("main")
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    bodyParser: false
+    bodyParser: false,
+    cors: {
+      origin: `http://localhost:4321`,
+      credentials: true,
+      allowedHeaders:''
+    },
+
   });
+
+  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({
     always: true,
     forbidNonWhitelisted: true,
     forbidUnknownValues: true,
   }))
   app.setGlobalPrefix('/v1/api');
-  app.enableCors();
+  // app.enableCors();
   const port = process.env.PORT ?? 3000;
   await app.listen(port, () => {
     logger.log(`Run in port: ${port}`)

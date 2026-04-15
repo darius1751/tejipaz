@@ -6,6 +6,6 @@ export class MongoIdPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     if(isMongoId(value))
       return value;
-    throw new BadRequestException(`Error in format id: ${value}`);
+    throw new BadRequestException(`Error in format MongoId: ${value}`);
   }
 }

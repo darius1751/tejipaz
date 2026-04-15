@@ -50,6 +50,12 @@ export class ProductController {
   findOne(@Param('id', MongoIdPipe) id: string) {
     return this.productService.findOne(id);
   }
+  
+  @Get('slug/:slug')
+  @AllowAnonymous()
+  findOneBySlug(@Param('slug') slug: string) {
+    return this.productService.findOneBySlug(slug);
+  }
 
   @Patch(':id')
   @Roles(["admin"])

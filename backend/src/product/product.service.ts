@@ -61,12 +61,22 @@ export class ProductService {
   ) {
     const totalRecords = await this.productModel.estimatedDocumentCount();
     const totalPages = Math.ceil(totalRecords / Math.max(take, 1));
-
-    const products = await this.productModel.find({
-      name,
-      tags: !!tags.length ? tags : undefined,
-      categories: !!categories.length ? categories : undefined
-    }, {}, { skip: page * take, limit: take, populate: ["categories", "tags"] });
+    const conditions: any = {
+      name: {
+        $regex: `/*${name}*/`
+      },
+      tags: { $in: tags },
+      categories: { $in: categories },
+    }
+    if (!name)
+      delete conditions.name;
+    if (!tags)
+      delete conditions.tags;
+    if (!categories)
+      delete conditions.categories;
+    // tags: !!tags?.length ? tags : undefined,
+    // categories: !!categories?.length ? categories : undefined
+    const products = await this.productModel.find(conditions, {}, { skip: (page - 1) * take, limit: take, populate: ["categories", "tags"] });
     const currentPage = Math.min(Math.max(page, 1), totalPages);
     return {
       hasPreviousePage: currentPage > 1,
@@ -84,6 +94,12 @@ export class ProductService {
     const product = await this.productModel.findById(id, {}, { populate: ["categories", "tags"] });
     if (!product)
       throw new BadRequestException(`Not exists product with id: ${id}`);
+    return product;
+  }
+  async findOneBySlug(slug: string) {
+    const product = await this.productModel.findOne({ slug }, {}, { populate: ["categories", "tags"] });
+    if (!product)
+      throw new BadRequestException(`Not exists product with slug: ${slug}`);
     return product;
   }
 

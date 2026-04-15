@@ -1,0 +1,46 @@
+{
+    "RootLayout": {
+        "Navbar": [
+            {
+                "text": "Home",
+                "to": "/"
+            },
+            {
+                "text": "Shop",
+                "to": "/shop"
+            },
+            {
+                "text": "About",
+                "to": "/about"
+            },
+            {
+                "text": "Blogs",
+                "to": "/blogs"
+            },
+            {
+                "text": "Contact us",
+                "to": "/contact"
+            }
+        ],
+        "Home": {}
+    },
+    "Products": {
+        "metadata": {
+            "title": "",
+            "description": ""
+        },
+        "title": "Products",
+        "search": "Filter by name",
+        "addToCart": "Add to cart",
+        "AddToCartModal": {
+            "header": "Added to cart",
+            "text": "The product {name} has been successfully added",
+            "promotional": "Here are some other products that might interest you",
+            "buttons": {
+                "viewCart": "View cart",
+                "checkout": "Go to checkout",
+                "continue": "Continue shopping"
+            }
+        }
+    }
+}
